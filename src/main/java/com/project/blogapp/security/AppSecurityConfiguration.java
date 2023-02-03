@@ -1,7 +1,7 @@
 package com.project.blogapp.security;
 
 import com.project.blogapp.security.jwt.*;
-import com.project.blogapp.users.UserService;
+import com.project.blogapp.serviceImpl.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,11 +18,11 @@ public class AppSecurityConfiguration {
 
     public AppSecurityConfiguration(
             JwtService jwtService,
-            UserService userService
+            UserServiceImpl userServiceImpl
     ) {
         jwtAuthenticationFilter = new JwtAuthenticationFilter(
                 new JwtAuthenticationManager(
-                        jwtService, userService
+                        jwtService, userServiceImpl
                 )
         );
     }

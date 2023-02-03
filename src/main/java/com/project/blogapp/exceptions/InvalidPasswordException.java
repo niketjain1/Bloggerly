@@ -1,4 +1,4 @@
-package com.project.blogapp.users.user_exception;
+package com.project.blogapp.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

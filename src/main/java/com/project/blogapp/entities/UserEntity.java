@@ -1,7 +1,5 @@
-package com.project.blogapp.users;
+package com.project.blogapp.entities;
 
-import com.project.blogapp.articles.ArticleEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,13 +16,15 @@ public class UserEntity {
     @Column(name = "Id", unique = true, nullable = false)
     private int id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name ="Username", nullable = false, unique = true)
     private String username;
-    @Column(nullable = false, unique = true)
+    @Column(name = "Email", nullable = false, unique = true)
     private String email;
     @Column(nullable = false, unique = true)
     private String password;
 
+    @Column(name = "About", nullable = false)
+    private String about;
     @OneToMany()
     List<ArticleEntity> articles;
 }

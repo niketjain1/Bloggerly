@@ -1,6 +1,6 @@
 package com.project.blogapp.security.jwt;
 
-import com.project.blogapp.users.UserService;
+import com.project.blogapp.serviceImpl.UserServiceImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -8,11 +8,11 @@ import org.springframework.security.core.AuthenticationException;
 public class JwtAuthenticationManager implements AuthenticationManager {
 
     private JwtService jwtService;
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
-    public JwtAuthenticationManager(JwtService jwtService, UserService userService) {
+    public JwtAuthenticationManager(JwtService jwtService, UserServiceImpl userServiceImpl) {
         this.jwtService = jwtService;
-        this.userService = userService;
+        this.userServiceImpl = userServiceImpl;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class JwtAuthenticationManager implements AuthenticationManager {
             // TODO: crypto failure on jwt verification
             // TODO: check if jwt is expired
 
-            var user = userService.findByUsername(username);
+            var user = userServiceImpl.findByUsername(username);
             jwtAuthentication.setUser(user);
             return jwtAuthentication;
         }

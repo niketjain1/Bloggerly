@@ -1,4 +1,4 @@
-package com.project.blogapp.users.dtos;
+package com.project.blogapp.payloads;
 
 import lombok.Data;
 

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -23,6 +24,7 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<UserResponseDto> createUser(
+            @Valid
             @RequestBody CreateUserDto request
     ){
         var createdUser = userServiceImpl.createUser(request);
@@ -37,6 +39,7 @@ public class UserController {
     }
     @PostMapping("/login")
     public ResponseEntity<UserResponseDto> verifyUser(
+            @Valid
             @RequestBody LoginUserDto request
     ){
         var verifiedUser = userServiceImpl.verifyUser(request);

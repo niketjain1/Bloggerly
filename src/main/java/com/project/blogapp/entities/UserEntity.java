@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,7 @@ import java.util.List;
 @Table(name = "users")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)
     private int id;
 
@@ -25,6 +26,6 @@ public class UserEntity {
 
     @Column(name = "About", nullable = false)
     private String about;
-    @OneToMany()
-    List<ArticleEntity> articles;
+    @OneToMany(targetEntity = PostEntity.class, mappedBy = "user", cascade = CascadeType.ALL)
+    private List<PostEntity> posts = new ArrayList<>();
 }

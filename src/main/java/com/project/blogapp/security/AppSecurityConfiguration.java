@@ -35,7 +35,8 @@ public class AppSecurityConfiguration {
                 .antMatchers("/about").permitAll()
 //                .antMatchers("/movies").permitAll()
                 .antMatchers(HttpMethod.POST, "/users", "/users/login").permitAll()
-                .antMatchers("/*/**").authenticated()
+                .antMatchers("/*/**").permitAll()
+//                .antMatchers("/*/**").authenticated()
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter, AnonymousAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

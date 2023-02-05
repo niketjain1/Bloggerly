@@ -2,6 +2,7 @@ package com.project.blogapp.service;
 
 import com.project.blogapp.entities.PostEntity;
 import com.project.blogapp.payloads.PostDto;
+import com.project.blogapp.payloads.PostResponse;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public interface PostService {
 
     void deletePost(Integer postId);
 
-    List<PostDto> getAllPosts(Integer pageNumber, Integer pageSize);
+    PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy);
 
     PostDto getPostById(Integer postId);
 

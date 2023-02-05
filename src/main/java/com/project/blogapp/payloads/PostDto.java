@@ -10,6 +10,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class PostDto {
+
+    private Integer id;
     private String title;
     private String content;
 

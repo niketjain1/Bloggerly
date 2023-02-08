@@ -26,5 +26,5 @@ public class PostDto {
 
     private UserResponseDto user;
 
-    private Set<CommentEntity> comments = new HashSet<>();
+    private Set<CommentDto> comments = new HashSet<>();
 }

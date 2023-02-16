@@ -2,6 +2,9 @@ package com.project.blogapp.payloads;
 
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 public class UserResponseDto {
 
@@ -9,8 +12,7 @@ public class UserResponseDto {
 
     private String username;
     private String email;
-    private String token;
-
     private String about;
 
+    private Set<RoleDto> roles = new HashSet<>();
 }

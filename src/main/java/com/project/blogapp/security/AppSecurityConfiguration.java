@@ -5,6 +5,7 @@ import com.project.blogapp.serviceImpl.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -13,6 +14,7 @@ import org.springframework.security.web.authentication.AnonymousAuthenticationFi
 
 @EnableWebSecurity
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class AppSecurityConfiguration {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -33,10 +35,8 @@ public class AppSecurityConfiguration {
         http.cors().disable().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/about").permitAll()
-//                .antMatchers("/movies").permitAll()
-                .antMatchers(HttpMethod.POST, "/users", "/users/login").permitAll()
-                .antMatchers("/*/**").permitAll()
-//                .antMatchers("/*/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
+                .antMatchers("/*/**").authenticated()
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter, AnonymousAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -1,6 +1,11 @@
 package com.project.blogapp.serviceImpl;
 
+import com.project.blogapp.config.AppConstants;
+import com.project.blogapp.entities.PostEntity;
+import com.project.blogapp.entities.RoleEntity;
 import com.project.blogapp.entities.UserEntity;
+import com.project.blogapp.payloads.LoginResponseDto;
+import com.project.blogapp.repositories.RoleRepository;
 import com.project.blogapp.repositories.UserRepository;
 import com.project.blogapp.security.jwt.JwtService;
 import com.project.blogapp.payloads.CreateUserDto;
@@ -11,27 +16,37 @@ import com.project.blogapp.exceptions.InvalidUsernameException;
 import com.project.blogapp.exceptions.ResourceNotFoundException;
 import com.project.blogapp.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private ModelMapper modelMapper;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
     private JwtService jwtService;
+    @Autowired
+    private RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, JwtService jwtService, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public UserResponseDto createUser(CreateUserDto request) {
         var user = modelMapper.map(request, UserEntity.class);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        RoleEntity role = roleRepository.findById(AppConstants.NORMAL_USER).get();
+        user.getRoles().add(role);
         var savedUser = userRepository.save(user);
         var response = modelMapper.map(savedUser, UserResponseDto.class);
 
@@ -39,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto verifyUser(LoginUserDto request) throws  ResourceNotFoundException {
+    public LoginResponseDto verifyUser(LoginUserDto request) throws  ResourceNotFoundException {
         UserEntity user = userRepository.findByUsername(request.getUsername());
         System.out.println(user);
         if (user == null) {
@@ -49,7 +64,7 @@ public class UserServiceImpl implements UserService {
             throw new InvalidPasswordException();
         }
 
-        var response = modelMapper.map(user, UserResponseDto.class);
+        var response = modelMapper.map(user, LoginResponseDto.class);
         response.setToken(jwtService.createJwt(response.getUsername()));
         return response;
     }

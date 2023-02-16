@@ -11,11 +11,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+@EnableWebMvc
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class AppSecurityConfiguration {
+
+    public static final String[] PUBLIC_URLS = {
+            "/auth/**",
+            "/v3/api-docs",
+            "/v2/api-docs",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/webjars/**"
+
+    };
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     public AppSecurityConfiguration(
@@ -34,8 +46,7 @@ public class AppSecurityConfiguration {
         // TODO: in prod, cors and csrf shouldn't be blanket disabled
         http.cors().disable().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/about").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
+                .antMatchers(PUBLIC_URLS).permitAll()
                 .antMatchers("/*/**").authenticated()
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter, AnonymousAuthenticationFilter.class)

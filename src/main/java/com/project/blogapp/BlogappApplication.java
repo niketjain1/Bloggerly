@@ -40,11 +40,11 @@ public class BlogappApplication implements CommandLineRunner {
 
 			RoleEntity role = new RoleEntity();
 			role.setId(AppConstants.ADMIN_USER);
-			role.setName("ADMIN_USER");
+			role.setName("ROLE_ADMIN");
 
 			RoleEntity role1 = new RoleEntity();
 			role1.setId(AppConstants.NORMAL_USER);
-			role1.setName("NORMAL_USER");
+			role1.setName("ROLE_NORMAL");
 
 			List<RoleEntity> roles = List.of(role,role1);
 			List<RoleEntity> savedRoles = roleRepository.saveAll(roles);

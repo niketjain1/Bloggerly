@@ -29,6 +29,8 @@ dependencies {
 	implementation 'org.springframework:spring-orm:5.3.5'
 	implementation 'org.springframework.security:spring-security-config'
 
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'

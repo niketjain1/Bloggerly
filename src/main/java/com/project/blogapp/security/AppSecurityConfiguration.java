@@ -20,7 +20,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class AppSecurityConfiguration {
 
     public static final String[] PUBLIC_URLS = {
-            "/auth/**",
+            "/auth/register",
+            "/auth/login",
             "/v3/api-docs",
             "/v2/api-docs",
             "/swagger-resources/**",

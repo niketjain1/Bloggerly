@@ -1,7 +1,7 @@
 package com.project.blogapp;
 
 import com.project.blogapp.config.AppConstants;
-import com.project.blogapp.entities.RoleEntity;
+import com.project.blogapp.entities.Role;
 import com.project.blogapp.repositories.RoleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,16 +38,16 @@ public class BlogappApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		try {
 
-			RoleEntity role = new RoleEntity();
+			Role role = new Role();
 			role.setId(AppConstants.ADMIN_USER);
 			role.setName("ROLE_ADMIN");
 
-			RoleEntity role1 = new RoleEntity();
+			Role role1 = new Role();
 			role1.setId(AppConstants.NORMAL_USER);
 			role1.setName("ROLE_NORMAL");
 
-			List<RoleEntity> roles = List.of(role,role1);
-			List<RoleEntity> savedRoles = roleRepository.saveAll(roles);
+			List<Role> roles = List.of(role,role1);
+			List<Role> savedRoles = roleRepository.saveAll(roles);
 			savedRoles.forEach(r ->{
 				System.out.println(r.getName());
 			});

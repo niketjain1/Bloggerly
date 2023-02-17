@@ -1,6 +1,5 @@
 package com.project.blogapp.payloads;
 
-import com.project.blogapp.entities.RoleEntity;
 import lombok.Data;
 
 import javax.validation.constraints.Email;

@@ -1,10 +1,15 @@
 package com.project.blogapp.security.jwt;
 
+import com.project.blogapp.entities.Role;
+import com.project.blogapp.payloads.RoleDto;
 import com.project.blogapp.payloads.UserResponseDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class JwtAuthentication implements Authentication {
 
@@ -20,7 +25,11 @@ public class JwtAuthentication implements Authentication {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO: not needed for now, unless we have different resources accessible to different roles
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        for (RoleDto role : user.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     @Override

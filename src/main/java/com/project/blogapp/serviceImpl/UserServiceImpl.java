@@ -1,8 +1,7 @@
 package com.project.blogapp.serviceImpl;
 
 import com.project.blogapp.config.AppConstants;
-import com.project.blogapp.entities.PostEntity;
-import com.project.blogapp.entities.RoleEntity;
+import com.project.blogapp.entities.Role;
 import com.project.blogapp.entities.UserEntity;
 import com.project.blogapp.payloads.LoginResponseDto;
 import com.project.blogapp.repositories.RoleRepository;
@@ -45,7 +44,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto createUser(CreateUserDto request) {
         var user = modelMapper.map(request, UserEntity.class);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        RoleEntity role = roleRepository.findById(AppConstants.NORMAL_USER).get();
+        Role role = roleRepository.findById(AppConstants.NORMAL_USER).get();
         user.getRoles().add(role);
         var savedUser = userRepository.save(user);
         var response = modelMapper.map(savedUser, UserResponseDto.class);

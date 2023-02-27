@@ -3,6 +3,9 @@ package com.project.blogapp;
 import com.project.blogapp.config.AppConstants;
 import com.project.blogapp.entities.Role;
 import com.project.blogapp.repositories.RoleRepository;
+
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,10 +15,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
 
 @SpringBootApplication(scanBasePackages = "com.project.blogapp")
-public class BlogappApplication {
+public class BlogappApplication implements CommandLineRunner{
+
+	@Autowired
+	RoleRepository roleRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(BlogappApplication.class, args);
 	}
@@ -31,27 +36,27 @@ public class BlogappApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-//	@Override
-//	public void run(String... args) throws Exception {
-//		try {
-//
-//			Role role = new Role();
-//			role.setId(AppConstants.ADMIN_USER);
-//			role.setName("ROLE_ADMIN");
-//
-//			Role role1 = new Role();
-//			role1.setId(AppConstants.NORMAL_USER);
-//			role1.setName("ROLE_NORMAL");
-//
-//			List<Role> roles = List.of(role,role1);
-//			List<Role> savedRoles = roleRepository.saveAll(roles);
-//			savedRoles.forEach(r ->{
-//				System.out.println(r.getName());
-//			});
-//
-//		}catch (Exception e){
-//			e.printStackTrace();
-//		}
-//
-//	}
+	@Override
+	public void run(String... args) throws Exception {
+		try {
+
+			Role role = new Role();
+			role.setId(AppConstants.ADMIN_USER);
+			role.setName("ROLE_ADMIN");
+
+			Role role1 = new Role();
+			role1.setId(AppConstants.NORMAL_USER);
+			role1.setName("ROLE_NORMAL");
+
+			List<Role> roles = List.of(role,role1);
+			List<Role> savedRoles = roleRepository.saveAll(roles);
+			savedRoles.forEach(r ->{
+				System.out.println(r.getName());
+			});
+
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+	}
 }

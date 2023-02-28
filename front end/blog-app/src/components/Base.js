@@ -7,7 +7,6 @@ const Base =({title = "Welcome to our websites", children}) =>{
             
             { children }
 
-            <h1>This is a header</h1>
         </div>
     )
 }

@@ -2,7 +2,8 @@ package com.project.blogapp.serviceImpl;
 
 import com.project.blogapp.entities.CategoryEntity;
 import com.project.blogapp.exceptions.ResourceNotFoundException;
-import com.project.blogapp.payloads.CategoryDto;
+import com.project.blogapp.payloads.CategoryResponseDto;
+import com.project.blogapp.payloads.CategoryRequestDto;
 import com.project.blogapp.repositories.CategoryRepository;
 import com.project.blogapp.service.CategoryService;
 import org.modelmapper.ModelMapper;
@@ -25,21 +26,21 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto createCategory(CategoryDto request) {
+    public CategoryResponseDto createCategory(CategoryRequestDto request) {
         CategoryEntity cat = modelMapper.map(request, CategoryEntity.class);
         CategoryEntity savedCat = categoryRepository.save(cat);
 
-        return modelMapper.map(savedCat, CategoryDto.class);
+        return modelMapper.map(savedCat, CategoryResponseDto.class);
     }
 
     @Override
-    public CategoryDto updateCategory(CategoryDto request, Integer categoryId) {
+    public CategoryResponseDto updateCategory(CategoryRequestDto request, Integer categoryId) {
         CategoryEntity cat = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "Category Id", categoryId));
         cat.setCategoryTitle(request.getCategoryTitle());
         cat.setCategoryDescription(request.getCategoryDescription());
         CategoryEntity updatedCat = categoryRepository.save(cat);
-        return modelMapper.map(updatedCat, CategoryDto.class);
+        return modelMapper.map(updatedCat, CategoryResponseDto.class);
     }
 
     @Override
@@ -50,17 +51,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto getCategoryById(Integer categoryId) {
+    public CategoryResponseDto getCategoryById(Integer categoryId) {
         CategoryEntity cat = categoryRepository.findById(categoryId).
                 orElseThrow(() -> new ResourceNotFoundException("Category", "Category Id", categoryId));
 
-        return modelMapper.map(cat, CategoryDto.class);
+        return modelMapper.map(cat, CategoryResponseDto.class);
     }
 
     @Override
-    public List<CategoryDto> getAllCategories() {
+    public List<CategoryResponseDto> getAllCategories() {
         List<CategoryEntity> allCat = categoryRepository.findAll();
-        List<CategoryDto> response = allCat.stream().map((cat) -> modelMapper.map(cat, CategoryDto.class)).collect(Collectors.toList());
+        List<CategoryResponseDto> response = allCat.stream().map((cat) -> modelMapper.map(cat, CategoryResponseDto.class)).collect(Collectors.toList());
         return response;
     }
 }

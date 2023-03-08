@@ -18,7 +18,8 @@ public class CommentEntity {
 
     private String content;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "postId")
+    @JoinColumn(name = "post_Id")
     private PostEntity post;
 }

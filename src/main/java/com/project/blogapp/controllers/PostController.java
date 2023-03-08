@@ -1,9 +1,9 @@
 package com.project.blogapp.controllers;
 
 import com.project.blogapp.config.AppConstants;
-import com.project.blogapp.entities.PostEntity;
 import com.project.blogapp.payloads.ApiResponse;
-import com.project.blogapp.payloads.PostDto;
+import com.project.blogapp.payloads.PostResponseDto;
+import com.project.blogapp.payloads.PostRequestDto;
 import com.project.blogapp.payloads.PostResponse;
 import com.project.blogapp.service.FileService;
 import com.project.blogapp.service.PostService;
@@ -12,12 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,30 +34,30 @@ public class PostController {
     private String path;
 
     @PostMapping("/user/{userId}/category/{categoryId}/post")
-    public ResponseEntity<PostDto> createPost(
-            @RequestBody PostDto postDto,
+    public ResponseEntity<PostResponseDto> createPost(
+            @RequestBody PostRequestDto postDto,
             @PathVariable Integer userId,
             @PathVariable Integer categoryId
     ){
-        PostDto createdPost = postService.createPost(postDto, userId, categoryId);
-        return new ResponseEntity<PostDto>(createdPost, HttpStatus.CREATED);
+        PostResponseDto createdPost = postService.createPost(postDto, userId, categoryId);
+        return new ResponseEntity<PostResponseDto>(createdPost, HttpStatus.CREATED);
     }
 
     @GetMapping("/user/{userId}/posts")
-    public ResponseEntity<List<PostDto>> getPostsByUser(@PathVariable Integer userId){
-        List<PostDto> posts = postService.getPostByUser(userId);
+    public ResponseEntity<List<PostResponseDto>> getPostsByUser(@PathVariable Integer userId){
+        List<PostResponseDto> posts = postService.getPostByUser(userId);
         System.out.println(posts);
-        return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
+        return new ResponseEntity<List<PostResponseDto>>(posts, HttpStatus.OK);
     }
 
     @GetMapping("/category/{categoryId}/posts")
-    public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable Integer categoryId){
-        List<PostDto> posts = postService.getPostByCategory(categoryId);
-        return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
+    public ResponseEntity<List<PostResponseDto>> getPostsByCategory(@PathVariable Integer categoryId){
+        List<PostResponseDto> posts = postService.getPostByCategory(categoryId);
+        return new ResponseEntity<List<PostResponseDto>>(posts, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<PostResponse> getAllposts(
+    public ResponseEntity<PostResponse> getAllPosts(
             @RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
             @RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
@@ -70,9 +68,10 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostDto> getPostById(@PathVariable Integer postId){
-        PostDto post = postService.getPostById(postId);
-        return new ResponseEntity<PostDto>(post, HttpStatus.OK);
+    public ResponseEntity<PostResponseDto> getPostById(@PathVariable Integer postId){
+        PostResponseDto post = postService.getPostById(postId);
+
+        return new ResponseEntity<PostResponseDto>(post, HttpStatus.OK);
     }
 
     @DeleteMapping("/{postId}")
@@ -82,32 +81,32 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto , @PathVariable Integer postId){
-        PostDto updatePost = postService.updatePost(postDto, postId);
-        return new ResponseEntity<PostDto>(updatePost, HttpStatus.OK);
+    public ResponseEntity<PostResponseDto> updatePost(@RequestBody PostResponseDto postResponseDto, @PathVariable Integer postId){
+        PostResponseDto updatePost = postService.updatePost(postResponseDto, postId);
+        return new ResponseEntity<PostResponseDto>(updatePost, HttpStatus.OK);
     }
 
     @GetMapping("/search/{keywords}")
-    public ResponseEntity<List<PostDto>> searchPostByTitle(
+    public ResponseEntity<List<PostResponseDto>> searchPostByTitle(
             @PathVariable("keywords") String keywords
     ){
-        List<PostDto> result = postService.searchPosts(keywords);
-        return new ResponseEntity<List<PostDto>>(result, HttpStatus.OK);
+        List<PostResponseDto> result = postService.searchPosts(keywords);
+        return new ResponseEntity<List<PostResponseDto>>(result, HttpStatus.OK);
     }
 
     // Post image
 
     @PostMapping("/image/upload/{postId}")
-    public ResponseEntity<PostDto> uploadImage(
+    public ResponseEntity<PostResponseDto> uploadImage(
             @PathVariable("postId") Integer postId,
             @RequestParam("image") MultipartFile image) throws IOException {
 
-        PostDto postDto = postService.getPostById(postId);
+        PostResponseDto postResponseDto = postService.getPostById(postId);
         String fileName = this.fileService.uploadImage(path, image);
 
-        postDto.setImageName(fileName);
-        PostDto updatedPost = postService.updatePost(postDto, postId);
-        return new ResponseEntity<PostDto>(updatedPost, HttpStatus.OK);
+        postResponseDto.setImageName(fileName);
+        PostResponseDto updatedPost = postService.updatePost(postResponseDto, postId);
+        return new ResponseEntity<PostResponseDto>(updatedPost, HttpStatus.OK);
     }
 
     // Method to serve files

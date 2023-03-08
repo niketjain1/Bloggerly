@@ -1,6 +1,7 @@
 package com.project.blogapp.service;
 
-import com.project.blogapp.payloads.CategoryDto;
+import com.project.blogapp.payloads.CategoryResponseDto;
+import com.project.blogapp.payloads.CategoryRequestDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,14 +9,14 @@ import java.util.List;
 public interface CategoryService {
 
     //create
-    CategoryDto createCategory(CategoryDto request);
+    CategoryResponseDto createCategory(CategoryRequestDto request);
     //update
-    CategoryDto updateCategory(CategoryDto request, Integer categoryId);
+    CategoryResponseDto updateCategory(CategoryRequestDto request, Integer categoryId);
     //delete
     public void deleteCategory(Integer categoryId);
     //get
-    CategoryDto getCategoryById(Integer categoryId);
+    CategoryResponseDto getCategoryById(Integer categoryId);
 
     //get ALl
-    List<CategoryDto> getAllCategories();
+    List<CategoryResponseDto> getAllCategories();
 }

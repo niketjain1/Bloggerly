@@ -1,9 +1,8 @@
 package com.project.blogapp.service;
 
-import com.project.blogapp.entities.PostEntity;
-import com.project.blogapp.payloads.PostDto;
+import com.project.blogapp.payloads.PostResponseDto;
+import com.project.blogapp.payloads.PostRequestDto;
 import com.project.blogapp.payloads.PostResponse;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,19 +10,19 @@ import java.util.List;
 @Service
 public interface PostService {
 
-    PostDto createPost(PostDto postDto, Integer userId, Integer categoryId);
+    PostResponseDto createPost(PostRequestDto postDto, Integer userId, Integer categoryId);
 
-    PostDto updatePost(PostDto postDto, Integer postId);
+    PostResponseDto updatePost(PostResponseDto postResponseDto, Integer postId);
 
     void deletePost(Integer postId);
 
     PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
-    PostDto getPostById(Integer postId);
+    PostResponseDto getPostById(Integer postId);
 
-    List<PostDto> getPostByCategory(Integer categoryId);
+    List<PostResponseDto> getPostByCategory(Integer categoryId);
 
-    List<PostDto> getPostByUser(Integer userId);
+    List<PostResponseDto> getPostByUser(Integer userId);
 
-    List<PostDto> searchPosts(String keyword);
+    List<PostResponseDto> searchPosts(String keyword);
 }

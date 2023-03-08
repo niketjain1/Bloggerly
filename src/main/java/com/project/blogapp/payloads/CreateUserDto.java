@@ -21,7 +21,7 @@ public class CreateUserDto {
     @NotEmpty
     private String about;
 
-    private Set<RoleDto> roles = new HashSet<>();
+//    private Set<RoleDto> roles = new HashSet<>();
 
 }
 

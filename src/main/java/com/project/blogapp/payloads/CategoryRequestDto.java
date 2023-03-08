@@ -12,7 +12,7 @@ public class CategoryRequestDto {
     @Size(min = 2, message = "Minimum size of tile should be 2")
     private String categoryTitle;
     @NotBlank
-    @Size(min = 10, message = "Minimum size of tile should be 10")
+    @Size(min = 10, message = "Minimum size of description should be 10")
     private String categoryDescription;
 
 }

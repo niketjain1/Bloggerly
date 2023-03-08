@@ -1,11 +1,10 @@
 package com.project.blogapp.payloads;
 
+import com.project.blogapp.entities.CommentEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -23,5 +22,5 @@ public class PostResponseDto {
 
     private UserResponseDto user;
 
-    private Set<CommentDto> comments = new HashSet<>();
+    private List<CommentDto> comments = new ArrayList<>();
 }

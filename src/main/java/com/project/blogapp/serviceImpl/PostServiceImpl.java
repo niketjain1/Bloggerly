@@ -110,12 +110,9 @@ public class PostServiceImpl implements PostService {
         PostEntity post = postRepository.findById(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Post", "post id", postId)
         );
-        System.out.println(post.getPid());
-        System.out.println(post.getComments());
+
         PostResponseDto postResponseDto = modelMapper.map(post, PostResponseDto.class);
 
-        System.out.println(postResponseDto.getPid());
-//        postResponseDto.setId(post.getPid());
         return postResponseDto;
     }
 

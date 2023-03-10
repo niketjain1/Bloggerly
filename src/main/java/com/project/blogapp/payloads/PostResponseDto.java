@@ -1,8 +1,5 @@
 package com.project.blogapp.payloads;
 
-import com.project.blogapp.entities.CategoryEntity;
-import com.project.blogapp.entities.CommentEntity;
-import com.project.blogapp.entities.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +9,9 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class PostDto {
+public class PostResponseDto {
 
-    private Integer id;
+    private Integer pid;
     private String title;
     private String content;
 
@@ -22,7 +19,7 @@ public class PostDto {
 
     private Date addedDate;
 
-    private CategoryDto category;
+    private CategoryResponseDto category;
 
     private UserResponseDto user;
 

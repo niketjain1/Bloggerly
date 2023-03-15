@@ -30,6 +30,6 @@ export const getCurrentUserDetail=()=>{
     if(isloggedin){
         return JSON.parse(localStorage.getItem("data"));
     }else{
-        return false;
+        return undefined;
     }
 }

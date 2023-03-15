@@ -1,7 +1,9 @@
 package com.project.blogapp.security;
 
+import com.project.blogapp.repositories.CommentRepository;
 import com.project.blogapp.security.jwt.*;
 import com.project.blogapp.serviceImpl.UserServiceImpl;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,7 +13,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import javax.servlet.FilterRegistration;
 
 @EnableWebMvc
 @EnableWebSecurity
@@ -30,16 +37,18 @@ public class AppSecurityConfiguration {
 
     };
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CommentRepository commentRepository;
 
     public AppSecurityConfiguration(
             JwtService jwtService,
-            UserServiceImpl userServiceImpl
-    ) {
+            UserServiceImpl userServiceImpl,
+            CommentRepository commentRepository) {
         jwtAuthenticationFilter = new JwtAuthenticationFilter(
                 new JwtAuthenticationManager(
                         jwtService, userServiceImpl
                 )
         );
+        this.commentRepository = commentRepository;
     }
 
     @Bean
@@ -53,5 +62,28 @@ public class AppSecurityConfiguration {
                 .addFilterBefore(jwtAuthenticationFilter, AnonymousAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
+    }
+
+    @Bean
+    public FilterRegistrationBean coresFilter(){
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedOriginPattern("*");
+        corsConfiguration.addAllowedHeader("Authorization");
+        corsConfiguration.addAllowedHeader("Content-Type");
+        corsConfiguration.addAllowedHeader("Accept");
+        corsConfiguration.addAllowedMethod("GET");
+        corsConfiguration.addAllowedMethod("POST");
+        corsConfiguration.addAllowedMethod("DELETE");
+        corsConfiguration.addAllowedMethod("PUT");
+        corsConfiguration.addAllowedMethod("OPTIONS");
+        corsConfiguration.setMaxAge(3600L);
+
+        source.registerCorsConfiguration("/**", corsConfiguration);
+
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        return bean;
     }
 }

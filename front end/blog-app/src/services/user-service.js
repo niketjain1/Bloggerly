@@ -5,3 +5,9 @@ export const signUp = (user) => {
     .post('/auth/register', user)
     .then((response) => response.data);
 };
+
+export const login = (loginDetail) => {
+    return myAxios
+    .post('/auth/login', loginDetail)
+    .then((response)  => response.data);
+};

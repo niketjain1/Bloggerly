@@ -72,6 +72,10 @@ const Signup=()=>{
             console.log(error)
             console.log("Error");
 
+            if(error.response.status === 400 || error.response.status === 404 || error.response.status === 500){
+                toast.error(error.response.data.message)
+
+            }
             // handle errors in proper way
             setError({
                 errors:error,

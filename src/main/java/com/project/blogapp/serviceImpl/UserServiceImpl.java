@@ -13,6 +13,7 @@ import com.project.blogapp.payloads.UserResponseDto;
 import com.project.blogapp.exceptions.InvalidPasswordException;
 import com.project.blogapp.exceptions.InvalidUsernameException;
 import com.project.blogapp.exceptions.ResourceNotFoundException;
+import com.project.blogapp.exceptions.UsernameExistException;
 import com.project.blogapp.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +42,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto createUser(CreateUserDto request) {
-        var user = modelMapper.map(request, UserEntity.class);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        Role role = roleRepository.findById(AppConstants.NORMAL_USER).get();
-        user.getRoles().add(role);
-        var savedUser = userRepository.save(user);
-        var response = modelMapper.map(savedUser, UserResponseDto.class);
+    public UserResponseDto createUser(CreateUserDto request) throws  ResourceNotFoundException{
+        var existingUser = userRepository.findByUsername(request.getUsername());
+        if(existingUser != null){
+            throw new UsernameExistException(request.getUsername());
+        }else {
+            var user = modelMapper.map(request, UserEntity.class);
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            Role role = roleRepository.findById(AppConstants.NORMAL_USER).get();
+            user.getRoles().add(role);
+            var savedUser = userRepository.save(user);
+            var response = modelMapper.map(savedUser, UserResponseDto.class);
 
-        return response;
+            return response;
+        }
     }
 
     @Override

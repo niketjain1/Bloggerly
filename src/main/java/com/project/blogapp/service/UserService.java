@@ -8,7 +8,7 @@ import com.project.blogapp.payloads.LoginUserDto;
 import com.project.blogapp.payloads.UserResponseDto;
 
 public interface UserService {
-    UserResponseDto createUser(CreateUserDto request);
+    UserResponseDto createUser(CreateUserDto request) throws ResourceNotFoundException;
 
     LoginResponseDto verifyUser(LoginUserDto request) throws ResourceNotFoundException;
 

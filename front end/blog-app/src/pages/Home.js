@@ -1,12 +1,15 @@
+import { Container } from "reactstrap";
 import Base from "../components/Base";
+import NewFeed from "../components/NewFeed";
 
-const Home=()=>{
-    return(
-        <Base>
-        <h1>This is home page</h1>
-        <p>Welcome to home page</p>
-        </Base>
-    )
-}
+const Home = () => {
+  return (
+    <Base>
+      <Container className="mt-3">
+        <NewFeed />
+      </Container>
+    </Base>
+  );
+};
 
 export default Home;

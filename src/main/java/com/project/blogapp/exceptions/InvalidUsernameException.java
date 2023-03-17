@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class InvalidUsernameException extends RuntimeException{
     String username;
     public InvalidUsernameException(String username){
-        super(String.format("Username with %s not found", username));
+        super(String.format("Username with %s not found !", username));
         this.username = username;
     }
 }

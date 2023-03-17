@@ -57,6 +57,7 @@ public class AppSecurityConfiguration {
         http.cors().disable().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(PUBLIC_URLS).permitAll()
+                .antMatchers(HttpMethod.GET).permitAll()
                 .antMatchers("/*/**").authenticated()
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter, AnonymousAuthenticationFilter.class)
@@ -84,6 +85,8 @@ public class AppSecurityConfiguration {
         source.registerCorsConfiguration("/**", corsConfiguration);
 
         FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+
+        bean.setOrder(-110);
         return bean;
     }
 }

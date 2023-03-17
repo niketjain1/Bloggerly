@@ -14,5 +14,11 @@ export const savePost = (postdata) => {
 // Get all posts
 
 export const loadAllPosts = (pageNumber, pageSize) => {
-  return myAxios.get(`/posts/all?pageNumber=${pageNumber}&pageSize=${pageSize}`).then((response) => response.data);
+  return myAxios.get(`/posts/all?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=addedDate&sortDir=desc`).then((response) => response.data);
+};
+
+// Fetch a post from pid
+
+export const loadPostById=(pid)=>{
+  return myAxios.get("posts/" + pid).then(response => response.data);
 };

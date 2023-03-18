@@ -22,3 +22,7 @@ export const loadAllPosts = (pageNumber, pageSize) => {
 export const loadPostById=(pid)=>{
   return myAxios.get("posts/" + pid).then(response => response.data);
 };
+
+export const createComment=(comment, pid)=>{
+  return privateAxios.post(`/comments/post/${pid}/comment`, comment).then(response => response.data)
+}

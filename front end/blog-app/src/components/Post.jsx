@@ -8,8 +8,8 @@ function Post({post={title:"This is default post title", content: "This is a def
     <Card className='border-0 shadow mt-3'>
         <CardBody>
             <h1>{post.title}</h1>
-            <CardText dangerouslySetInnerHTML={{ __html: post.content.substring(0, 100)}}>
-                
+            <CardText>
+                <div dangerouslySetInnerHTML={{ __html: post.content.substring(0, 60) +"...."}}></div>
             </CardText>
 
             <div>

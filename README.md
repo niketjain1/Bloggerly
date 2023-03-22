@@ -17,7 +17,6 @@ Once you have these dependencies installed, follow these steps:
 1. Clone the repository to your local machine using Git.
 ```
 git clone https://github.com/niketjain1/bloggerly.git
-
 ```
 
 2. Create a MySQL database for Bloggerly and configure the application properties file (`src/main/resources/application.properties`) with the database connection details:
@@ -25,7 +24,7 @@ git clone https://github.com/niketjain1/bloggerly.git
 ```
 server.port = 5000
 
-spring.datasource.url=jdbc:mysql://localhost:3306/bloggerly
+spring.datasource.url=jdbc:mysql://localhost:3306/{Your data base name}
 spring.datasource.username=root
 spring.datasource.password=password
 ```
@@ -35,7 +34,7 @@ spring.datasource.password=password
 ./gradlew bootRun
 ``` 
 
-4. In a separate terminal, navigate to the `frontend` directory and install the required Node.js packages:
+4. In a separate terminal, navigate to the `frontend` directory and install the required Node.js packages using following commands:
 ```
 cd frontend
 npm install

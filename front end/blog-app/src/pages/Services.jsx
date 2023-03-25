@@ -1,10 +1,16 @@
+import { Container } from "reactstrap";
+import AddPost from "../components/AddPost";
 import Base from "../components/Base";
 
-const Services=()=>{
-    return(
+const Services = () => {
+    return (
         <Base>
-        <h1>This is service page</h1>
+            <Container>
+
+                <AddPost />
+            </Container>
         </Base>
+
     )
 }
 

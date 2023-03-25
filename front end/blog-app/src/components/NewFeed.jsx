@@ -4,6 +4,8 @@ import { toast } from 'react-toastify'
 import { Col, Row, Pagination, PaginationItem, PaginationLink, Container } from 'reactstrap'
 import { loadAllPosts } from '../services/Post-service'
 import Post from './Post'
+import { deletePostById } from '../services/Post-service'
+
 
 function NewFeed() {
 
@@ -41,22 +43,34 @@ function NewFeed() {
     })
   }
 
+  function deletePost(post){
+    deletePostById(post.pid).then((response) => {
+        console.log(response)
+        toast.success("Post deleted successfully !")
+        
+      changePage()
+    }).catch(error => {
+        console.log(error)
+        toast.error("Error in deleting post !")
+    })
+}
+
+
   return (
 
     <div className="container-fluid">
       <Row>
         <Col md={
           {
-            size: 10,
-            offset: 1
+            size: 12,
           }
         }>
 
-          <h1>BLogs Count ({postContent?.totalElements})</h1>
+          <h1>Blogs Count ({postContent?.totalElements})</h1>
 
           {
             postContent.content.map((post) => (
-              <Post post={post} key={post.pid} />
+              <Post post={post} key={post.pid} deletePost={deletePost} />
             ))
           }
           <Container className='mt-3'>

@@ -4,9 +4,7 @@ import com.project.blogapp.entities.CategoryEntity;
 import com.project.blogapp.entities.PostEntity;
 import com.project.blogapp.entities.UserEntity;
 import com.project.blogapp.exceptions.ResourceNotFoundException;
-import com.project.blogapp.payloads.PostResponseDto;
-import com.project.blogapp.payloads.PostRequestDto;
-import com.project.blogapp.payloads.PostResponse;
+import com.project.blogapp.payloads.*;
 import com.project.blogapp.repositories.CategoryRepository;
 import com.project.blogapp.repositories.PostRepository;
 import com.project.blogapp.repositories.UserRepository;
@@ -66,10 +64,12 @@ public class PostServiceImpl implements PostService {
         PostEntity post = postRepository.findById(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Post", "post id", postId)
         );
+
+        CategoryEntity category = categoryRepository.findById(postResponseDto.getCategory().getId()).get();
         post.setTitle(postResponseDto.getTitle());
         post.setContent(postResponseDto.getContent());
         post.setImageName(postResponseDto.getImageName());
-
+        post.setCategory(category);
         PostEntity updatedPost = postRepository.save(post);
 
         return modelMapper.map(updatedPost, PostResponseDto.class);

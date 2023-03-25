@@ -3,7 +3,7 @@ import { Button, Card, CardBody, Form, Input, Label, Container } from 'reactstra
 import { loadAllCategories } from '../services/Category-service'
 import JoditEditor from 'jodit-react';
 import { toast } from "react-toastify"
-import { savePost } from '../services/Post-service';
+import { savePost, uploadPostImage } from '../services/Post-service';
 import { getCurrentUserDetail } from '../Auth';
 
 function AddPost() {
@@ -24,6 +24,8 @@ function AddPost() {
         categoryId: ''
     })
 
+    const [image, setImage] = useState(null)
+
 
     useEffect(
         () => {
@@ -36,9 +38,7 @@ function AddPost() {
             }).catch(error => {
                 console.log(error)
             })
-        },
-        []
-    )
+        }, [])
 
     const fieldChanged = (event) => {
         setPost({
@@ -48,7 +48,7 @@ function AddPost() {
     }
 
     const contentFieldChanged = (data) => {
-        setPost({ ...post, 'content': data })
+        setPost({ ...post, content: data })
     }
 
     // create post function
@@ -78,6 +78,14 @@ function AddPost() {
 
         post['userId'] = user.id
         savePost(post).then(data => {
+
+            uploadPostImage(image, data.pid).then((data) => {
+                toast.success("Image successfully uploaded !!")
+            }).catch(error =>{
+                toast.error("Error in uploading image")
+                console.log(error)
+            })
+
             toast.success("Post created")
             // console.log(post)
             setPost({
@@ -92,6 +100,11 @@ function AddPost() {
 
     }
 
+    // handling file change event
+    const handleFileChange=(event)=>{
+        console.log(event.target.files[0])
+        setImage(event.target.files[0])
+    }
 
 
     return (
@@ -132,14 +145,34 @@ function AddPost() {
                             <JoditEditor
                                 ref={editor}
                                 value={post.content}
-                                // onBlur={newContent => setContent(newContent)}
-                                onChange={contentFieldChanged}
+                                onBlur={contentFieldChanged}
+                                
+                                // {event => {
+                                //     if (event.target) {
+                                //       setPost({ ...post, 'content': event.target.innerHTML })
+                                //     }
+                                // }
+                                // }
+                                // onChange={contentFieldChanged}
 
                             />
 
 
                         </div>
-
+                        {/*File Field*/}    
+                            <div className='mt-3'>
+                            <Label for="image">
+                                Image:
+                            </Label>
+                            <Input
+                                id="image"
+                                type="file"
+                                onChange={handleFileChange}
+                                multiple
+                                accept='image/*'
+                            />
+                            
+                            </div>
                         <div className='my-3'>
                             <Label for='category'>Post Category</Label>
                             <Input

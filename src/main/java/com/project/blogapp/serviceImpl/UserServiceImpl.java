@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
         response.setToken(jwtService.createJwt(response.getUsername()));
         return response;
     }
-
+    @Override
     public UserResponseDto getUserById(int userId) {
         UserEntity user = userRepository.findById(userId).
                 orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
@@ -91,6 +91,7 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
     }
 
+    @Override
     public UserResponseDto updateUser(CreateUserDto userDto, int userID){
         UserEntity user = userRepository.findById(userID).orElseThrow(() -> new ResourceNotFoundException("User", "id", userID));
 

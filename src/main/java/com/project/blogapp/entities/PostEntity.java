@@ -21,7 +21,7 @@ public class PostEntity {
     private int pid;
     @Column(name = "Title", nullable = false)
     private String title;
-    @Column(name = "content", nullable = false, length = 10000)
+    @Column(name = "content", nullable = false, length = 1000000000)
     private String content;
 
     @Column(name = "ImageURL", nullable = false)

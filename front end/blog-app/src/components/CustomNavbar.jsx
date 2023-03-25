@@ -1,6 +1,6 @@
 import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Collapse,
   Navbar,
@@ -15,8 +15,11 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import { doLogout, getCurrentUserDetail, isloggedin } from '../Auth';
+import userContext from '../context/UserContext';
 
 const CustomNavbar = () => {
+
+  const userContextData = useContext(userContext)
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,6 +35,10 @@ const CustomNavbar = () => {
       //logged out
 
       setLogin(false)
+      userContextData.setUser({
+        data: null,
+        login: false
+      })
       navigate("/")
     })
   }
@@ -57,17 +64,22 @@ const CustomNavbar = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
             <NavItem>
-              <NavLink tag={ReactLink} to="/">New Feed</NavLink>
+              <NavLink tag={ReactLink} to="/">Feed</NavLink>
             </NavItem>
 
             <NavItem>
               <NavLink tag={ReactLink} to="/about">About</NavLink>
             </NavItem>
-
-            <NavItem>
-              <NavLink tag={ReactLink} to="/services">Services</NavLink>
-            </NavItem>
-
+            {login && (
+              <>
+                <NavItem>
+                  <NavLink tag={ReactLink} to="/user/dashboard">
+                    New Post
+                  </NavLink>
+                </NavItem>
+              </>
+            )
+            }
 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
@@ -90,8 +102,8 @@ const CustomNavbar = () => {
                 <>
 
                   <NavItem>
-                    <NavLink tag={ReactLink} to="/user/profile-info">
-                      My Profile 
+                    <NavLink tag={ReactLink} to={`/user/profile-info/${user.id}`}>
+                      My Profile
                     </NavLink>
                   </NavItem>
 
@@ -100,7 +112,7 @@ const CustomNavbar = () => {
                       {user.username}
                     </NavLink>
                   </NavItem>
-                  
+
                   <NavItem>
                     <NavLink onClick={logout}>
                       Logout

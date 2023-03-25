@@ -1,10 +1,11 @@
 import Base from "../components/Base";
 import { Form, FormGroup, Label, Input, Button, Container, Row, CardBody, Col, Card, CardHeader } from "reactstrap";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {toast} from "react-toastify"
 import { login } from "../services/user-service";
 import { doLogin } from "../Auth";
 import { useNavigate } from "react-router-dom";
+import userContext from "../context/UserContext";
 
 
 const Login =()=>{
@@ -16,7 +17,7 @@ const Login =()=>{
 
     const navigate = useNavigate()
 
-
+    const userContextData = useContext(userContext)
 
     const handleChange = (event, field) =>{
         let actualValue = event.target.value
@@ -48,6 +49,10 @@ const Login =()=>{
             doLogin(data, () =>{
                 console.log("Login detail saved successfully in local storage")
                 // redirect to user dashboard page after login
+                userContextData.setUser({
+                    data: data,
+                    login: true
+                })
                 navigate("/user/dashboard")
 
 

@@ -12,5 +12,8 @@ public interface UserService {
 
     LoginResponseDto verifyUser(LoginUserDto request) throws ResourceNotFoundException;
 
+    UserResponseDto getUserById(int userId) throws ResourceNotFoundException;
     void deleteUserById(int userId) throws ResourceNotFoundException;
+
+    UserResponseDto updateUser(CreateUserDto userDto, int userID) throws ResourceNotFoundException;
 }

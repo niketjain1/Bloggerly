@@ -1,6 +1,7 @@
 package com.project.blogapp.controllers;
 
 import com.project.blogapp.payloads.*;
+import com.project.blogapp.repositories.UserRepository;
 import com.project.blogapp.serviceImpl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,12 @@ import java.net.URI;
 @RequestMapping("/auth")
 public class UserController {
     private UserServiceImpl userServiceImpl;
+    private final UserRepository userRepository;
 
-    public UserController(UserServiceImpl userServiceImpl) {
+    public UserController(UserServiceImpl userServiceImpl,
+                          UserRepository userRepository) {
         this.userServiceImpl = userServiceImpl;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/register")
@@ -43,5 +47,20 @@ public class UserController {
     ){
         var verifiedUser = userServiceImpl.verifyUser(request);
         return ResponseEntity.ok(verifiedUser);
+    }
+
+    @GetMapping("user/{userId}")
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Integer userId){
+       UserResponseDto user = userServiceImpl.getUserById(userId);
+
+        return new ResponseEntity<UserResponseDto>(user, HttpStatus.OK);
+    }
+    @PutMapping("/user/{userId}")
+    public ResponseEntity<UserResponseDto> updateUser(
+            @PathVariable Integer userId,
+            @Valid@RequestBody CreateUserDto request
+    ){
+        UserResponseDto updatedUser = userServiceImpl.updateUser(request, userId);
+        return new ResponseEntity<UserResponseDto>(updatedUser, HttpStatus.CREATED);
     }
 }

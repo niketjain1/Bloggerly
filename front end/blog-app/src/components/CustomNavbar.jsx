@@ -86,11 +86,11 @@ const CustomNavbar = () => {
                 More
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Contact us</DropdownItem>
+                <DropdownItem href="mailto:niketj2000@gmail.com">Contact me</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem>LinkedIn</DropdownItem>
+                <DropdownItem href="https://www.linkedin.com/in/niket-j/">LinkedIn</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem>Github</DropdownItem>
+                <DropdownItem href="https://github.com/niketjain1">Github</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>

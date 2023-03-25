@@ -17,6 +17,8 @@ import Base from "../components/Base";
 import { signUp } from "../services/user-service";
 import { toast } from "react-toastify";
 import {  useNavigate } from "react-router-dom";
+import '../Form.css'
+
 const Signup = () => {
   const [data, setData] = useState({
     username: "",
@@ -108,14 +110,14 @@ const Signup = () => {
           {/* {JSON.stringify(data)} */}
 
           <Col sm={{ size: 6, offset: 3 }}>
-            <Card color="dark" inverse>
+            <Card className="form" style={{ backgroundColor: "#37474F", borderColor: "#000000" }} inverse>
               <CardHeader>
                 <h3> Fill information to register !! </h3>
               </CardHeader>
               <CardBody>
                 {/* creating form */}
 
-                <Form onSubmit={submitForm}>
+                <Form onSubmit={submitForm} >
                   {/*Name Filed*/}
                   <FormGroup>
                     <Label for="username">Username: </Label>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { ListGroup, ListGroupItem } from 'reactstrap'
 import { loadAllCategories } from '../services/Category-service'
+import '../Form.css'
 
 function CategorySideMenu() {
 
@@ -19,7 +20,7 @@ function CategorySideMenu() {
   }, [])
 
   return (
-    <div>
+    <div className='form-page'>
       <ListGroup>
         <ListGroupItem tag={Link} to="/" action={true} className='border-0'>
           All Blogs

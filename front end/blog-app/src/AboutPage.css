@@ -1,0 +1,78 @@
+.about-page {
+  background-color: #F5F5F5;
+  border-color: blueviolet;
+}
+
+.about-page h1 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.about-page h2 {
+  font-size: 2rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.about-page h2 {
+  font-size: 3rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.about-page p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.about-page .description {
+    font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.about-page .feature-list {
+  list-style: none;
+  margin: 1;
+  padding: 0;
+}
+
+.about-page .feature-list li {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.about-page .feature-list li:before {
+  content: '•';
+  color: green;
+  position: absolute;
+  left: 0;
+}
+
+.about-page .technology-description {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.about-page .join-description {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.about-page .join-button {
+  display: block;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.about-page .join-button:hover {
+  background-color: #0062cc;
+}

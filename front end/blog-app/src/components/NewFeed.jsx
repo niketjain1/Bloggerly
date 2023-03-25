@@ -5,6 +5,8 @@ import { Col, Row, Pagination, PaginationItem, PaginationLink, Container } from 
 import { loadAllPosts } from '../services/Post-service'
 import Post from './Post'
 import { deletePostById } from '../services/Post-service'
+import '../Form.css'
+
 
 
 function NewFeed() {
@@ -58,7 +60,7 @@ function NewFeed() {
 
   return (
 
-    <div className="container-fluid">
+    <div className="container-fluid form-page ">
       <Row>
         <Col md={
           {
@@ -66,7 +68,7 @@ function NewFeed() {
           }
         }>
 
-          <h1>Blogs Count ({postContent?.totalElements})</h1>
+          <h3 className='text-center mt-3'>Blog posts</h3>
 
           {
             postContent.content.map((post) => (

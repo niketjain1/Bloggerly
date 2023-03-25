@@ -81,7 +81,7 @@ const Login =()=>{
             <Container>
                     <Row className="mt-4">
                     <Col sm={{size: 6, offset: 3}} >
-                        <Card color="dark" inverse>
+                        <Card style={{ backgroundColor: "#37474F", borderColor: "#000000" }} inverse>
                             <CardHeader>
                                 <h3> Login here !! </h3>
                             </CardHeader>

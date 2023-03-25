@@ -50,7 +50,7 @@ const PostPage = () => {
     useEffect(() => {
         // load post from pid
         loadPostById(pid).then((data) => {
-            console.log(data)
+            // console.log(data)
             setPost(data)
         }).catch(error => {
             console.log(error)

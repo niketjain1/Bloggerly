@@ -94,7 +94,12 @@ const PostPage = () => {
                                         <div className="image-container mt-4 shadow" style={{
                                             maxWidth: '50%'
                                         }}>
-                                            <img className="img-fluid" src={BASE_URL + "/posts/image/" + post.imageName} alt=" " />
+                                            
+                                            <img className="img-fluid" src={
+                                                post.imageName != "Default.png"
+                                                ? BASE_URL + "/posts/image/" + post.imageName 
+                                                : "https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                            } alt=" " />
                                         </div>
                                         <CardText className="mt-5" dangerouslySetInnerHTML={{ __html: post.content }}>
 

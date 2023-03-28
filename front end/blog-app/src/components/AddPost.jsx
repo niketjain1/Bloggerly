@@ -5,6 +5,7 @@ import JoditEditor from 'jodit-react';
 import { toast } from "react-toastify"
 import { savePost, uploadPostImage } from '../services/Post-service';
 import { getCurrentUserDetail } from '../Auth';
+import { useNavigate } from 'react-router-dom';
 
 function AddPost() {
 
@@ -26,6 +27,7 @@ function AddPost() {
 
     const [image, setImage] = useState(null)
 
+    const navigate = useNavigate()
 
     useEffect(
         () => {
@@ -83,6 +85,7 @@ function AddPost() {
                 toast.success("Image successfully uploaded !!")
             }).catch(error =>{
                 toast.error("Error in uploading image")
+                
                 console.log(error)
             })
 
@@ -93,6 +96,9 @@ function AddPost() {
                 content: '',
                 categoryId: ''
             })
+
+            navigate("/")
+
         }).catch((error) => {
             toast.error("Error")
             // console.log(error)

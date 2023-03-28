@@ -43,7 +43,7 @@ function UpdateBlog() {
         if (post) {
             // console.log(object)
             // console.log(post)
-            if (post.user.id != object.user.data.id) {
+            if (post.user.id !== object.user.data.id) {
 
                 toast.error("This is not your post !")
                 naviate("/")
@@ -66,6 +66,7 @@ function UpdateBlog() {
         .then(response => {
             // console.log(response)
             toast.success("Post updated successfully !")
+            naviate("/")
         }).catch(error => {
             console.log(error)
             toast.error("Error in updating the post !")

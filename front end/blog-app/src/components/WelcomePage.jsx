@@ -11,6 +11,8 @@ function WelcomePage() {
     useEffect(() => {
         const timer = setTimeout(() => {
           setShowModal(false);
+          navigate("/")
+
         }, 3000);
         return () => clearTimeout(timer);
       }, []);
@@ -20,10 +22,9 @@ function WelcomePage() {
           <Modal show={showModal} onHide={() => setShowModal(false)} backdrop="static">
             <Modal.Body>
               <h1>Welcome to Bloggerly</h1>
+              <p>Thank you for visiting. Please enjoy your stay.</p>
             </Modal.Body>
-          </Modal>
-            {navigate("/")}
-        
+          </Modal>      
         </div>
       );
       

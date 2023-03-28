@@ -21,6 +21,7 @@ function CategorySideMenu() {
 
   return (
     <div className='form-page'>
+      <h3 className='text-center mt-3'>Categories</h3>
       <ListGroup>
         <ListGroupItem tag={Link} to="/" action={true} className='border-0'>
           All Blogs

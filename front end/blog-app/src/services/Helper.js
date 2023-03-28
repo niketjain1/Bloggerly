@@ -1,14 +1,8 @@
 import axios from "axios";
-// import { useState, useEffect } from "react";
 import { getToken } from "../Auth";
-// const[user, setUser] = useState(undefined)
 
-// useEffect(
-//     () => {
-//        setUser(getCurrentUserDetail())
-//     }, []);
 
-export const BASE_URL ='http://localhost:5000';
+export const BASE_URL ='http://Blogapp-env-1.eba-74nfb38m.us-east-2.elasticbeanstalk.com';
 
 export const myAxios = axios.create({
     baseURL:BASE_URL
@@ -18,6 +12,7 @@ export const privateAxios = axios.create({
     baseURL:BASE_URL
 })
 
+
 privateAxios.interceptors.request.use(config=>{
     const token = getToken()
     // console.log(token)
@@ -26,3 +21,6 @@ privateAxios.interceptors.request.use(config=>{
         return config
     }
 } ,error=>Promise.reject(error))
+
+
+

@@ -1,8 +1,3 @@
-
-This is a Sprint boot project
-
-To build the project, run `./gradlew clean build`
-=======
 # Bloggerly - blogging web application
 
 Bloggerly is a user-friendly web application that allows users to publish, view, update, and delete their blog posts.
@@ -77,4 +72,5 @@ To update or delete one of your own blog posts, navigate to the post in the feed
 ## Api documentation
 The api documentation is available at: http://blogapp-env-1.eba-74nfb38m.us-east-2.elasticbeanstalk.com/swagger-ui/index.html
 
+Link to the website: http://bloggerly.s3-website.us-east-2.amazonaws.com/
 
